@@ -12,10 +12,14 @@
     <artifactId>spocktalksample</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spocktalksample</name>
-    <description>Spock talk Sample</description>
+    <description>Spock talk Sample (Spock and TestNG integration)</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version.source>1.8</java.version.source>
+        <java.version.target>1.8</java.version.target>
+        <surefire.version>3.0.0-M3</surefire.version>
     </properties>
 
     <dependencies>
@@ -36,6 +40,39 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <!--
+                [ How to execute JUnit(=Spock) and TestNG test cases at same time ? ]
+                see: http://solidsoft.wordpress.com/2013/03/12/mixing-testng-and-junit-tests-in-one-maven-module-2013-edition/
+                -->
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>${surefire.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-testng</artifactId>
+                        <version>${surefire.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+
+                    <!-- resolve "Cannot use a threadCount parameter less than 1; 1 > 0" error. -->
+                    <threadCount>1</threadCount>
+
+                    <includes>
+                        <!-- for JUnit, explicitly add xxxSpec and xxxTest file patterns. -->
+                        <!-- (mysteriously, ".groovy" dosn't work for Spock's xxxxSpec.groovy, but ".java" work!!) -->
+                        <include>**/*Spec.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
