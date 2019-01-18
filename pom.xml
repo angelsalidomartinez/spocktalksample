@@ -33,6 +33,19 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.1.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.5.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -63,12 +76,12 @@
                 </dependencies>
                 <configuration>
 
-                    <!-- resolve "Cannot use a threadCount parameter less than 1; 1 > 0" error. -->
                     <threadCount>1</threadCount>
 
                     <includes>
                         <!-- for JUnit, explicitly add xxxSpec and xxxTest file patterns. -->
                         <!-- (mysteriously, ".groovy" dosn't work for Spock's xxxxSpec.groovy, but ".java" work!!) -->
+                        <include>**/*Spec.java</include>
                         <include>**/*Spec.java</include>
                         <include>**/*Test.java</include>
                     </includes>
