@@ -45,6 +45,12 @@
             <artifactId>groovy-all</artifactId>
             <version>2.5.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.1-groovy-2.4-rc-2</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -81,7 +87,7 @@
                     <includes>
                         <!-- for JUnit, explicitly add xxxSpec and xxxTest file patterns. -->
                         <!-- (mysteriously, ".groovy" dosn't work for Spock's xxxxSpec.groovy, but ".java" work!!) -->
-                        <include>**/*Spec.java</include>
+                        <include>**/*Spec.groovy</include>
                         <include>**/*Spec.java</include>
                         <include>**/*Test.java</include>
                     </includes>
